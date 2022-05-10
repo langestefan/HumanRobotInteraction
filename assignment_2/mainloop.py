@@ -11,7 +11,6 @@ from definitions import *
 import sprite_routines as sp
 import my_navigation_code as nav
 
-
 def create_world(background):
 
     nao1 = sp.nao_robot(background)
@@ -26,7 +25,12 @@ def create_world(background):
     polygon1.set_pos(40, 10, 0)  # cm
     # allsprites = pygame.sprite.Group((target1,nao1))
     alltargets = sp.pygame.sprite.Group((target1,))
-    allobstacles = sp.pygame.sprite.Group((wall1, wall2, wall3, wall4))
+
+    if braitenberg:
+        allobstacles = sp.pygame.sprite.Group(())        
+    else:
+        allobstacles = sp.pygame.sprite.Group((wall1, wall2, wall3, wall4))        
+
     allrobots = sp.pygame.sprite.Group((nao1,))
 
     whiff_sound = sp.load_sound('whiff.wav')
