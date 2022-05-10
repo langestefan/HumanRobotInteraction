@@ -1,0 +1,11 @@
+
+autonomous life off = press chest button twice
+http://doc.aldebaran.com/1-14/naoqi/sensors/index.html
+
+robots:
+ - Marvin: IP address: 192.168.0.115 (colour = orange)
+ - Bender: IP address: 192.168.0.112 (colour = red)
+
+Install openCV2:
+- pip2 install opencv-python==4.2.0.32
+
