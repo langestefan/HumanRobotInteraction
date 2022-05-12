@@ -35,7 +35,7 @@ def FOrienting():
 def compute_velocity(target_distance, target_angle_robot):
     max_velocity = 1.0
     # modify the distance threshold here
-    max_distance = 35 #m
+    max_distance = 20 #m
     min_distance = 1 #m
 
     if target_distance >= max_distance:
@@ -48,8 +48,8 @@ def compute_velocity(target_distance, target_angle_robot):
 
 def compute_turnrate(target_dist, target_angle, sonar_distance_left, sonar_distance_right):
     max_turnrate = 0.349 #rad/s # may need adjustment!
-
-    delta_t = 1 # may need adjustment!
+    # modify robot rotation speed here
+    delta_t = 0.2 # may need adjustment!
     sonar_angle_left = 30 * degree
     sonar_angle_right = -30 * degree
     
