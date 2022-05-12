@@ -35,7 +35,7 @@ def FOrienting():
 def compute_velocity(target_distance, target_angle_robot):
     max_velocity = 1.0
     # modify the distance threshold here
-    max_distance = 20 #m
+    max_distance = 35 #m
     min_distance = 1 #m
 
     if target_distance >= max_distance:
@@ -70,14 +70,6 @@ def compute_turnrate(target_dist, target_angle, sonar_distance_left, sonar_dista
         turnrate=1.0
     else:
         turnrate=turnrate/max_turnrate
-
-    max_distance = 20.0 #m
-    min_distance = 1.0 #m
-    
-    if target_dist<max_distance:
-        turnrate = turnrate + np.sign(target_angle)*(math.pi)
-    elif target_dist<min_distance: 
-        turnrate = turnrate + np.sign(target_angle)*(math.pi*1.5)
 
     return turnrate
 
