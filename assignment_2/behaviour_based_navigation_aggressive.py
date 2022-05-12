@@ -1,12 +1,13 @@
 import math
 import random
+import numpy as np
 
 degree = math.pi/180.0 # radians per degree
 
 def FTarget(target_distance, target_angle):
 
     #do something useful here
-    Ftar=0
+    Ftar= - math.sin(-target_angle)
     return Ftar
 
 def FObstacle(obs_distance, obs_angle):
@@ -31,16 +32,16 @@ def FOrienting():
     Forient=0
     return Forient
 # agreesive mode: if dsitance is small,
-def compute_velocity(target_distance):
+def compute_velocity(target_distance, target_angle_robot):
     max_velocity = 1.0
     # modify the distance threshold here
-    max_distance = 25 #m
-    min_distance = 0.2 #m
+    max_distance = 20 #m
+    min_distance = 1 #m
 
     if target_distance >= max_distance:
         velocity = max_velocity
     else:
-        velocity = pow(max_distance-target_distance,2)/(max_distance-min_distance)
+        velocity = max_distance-target_distance + 1
 
     
     return velocity
@@ -69,6 +70,14 @@ def compute_turnrate(target_dist, target_angle, sonar_distance_left, sonar_dista
         turnrate=1.0
     else:
         turnrate=turnrate/max_turnrate
+
+    max_distance = 20.0 #m
+    min_distance = 1.0 #m
+    
+    if target_dist<max_distance:
+        turnrate = turnrate + np.sign(target_angle)*(math.pi)
+    elif target_dist<min_distance: 
+        turnrate = turnrate + np.sign(target_angle)*(math.pi*1.5)
 
     return turnrate
 
