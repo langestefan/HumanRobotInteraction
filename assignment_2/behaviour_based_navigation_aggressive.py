@@ -30,20 +30,17 @@ def FOrienting():
     #do something useful here
     Forient=0
     return Forient
-
-def compute_velocity(sonar_distance_left, sonar_distance_right):
+# agreesive mode: if dsitance is small,
+def compute_velocity(target_distance):
     max_velocity = 1.0
-    max_distance = 0.5 #m
+    # modify the distance threshold here
+    max_distance = 25 #m
     min_distance = 0.2 #m
 
-    if sonar_distance_left>max_distance and sonar_distance_right > max_distance:
+    if target_distance >= max_distance:
         velocity = max_velocity
-    elif sonar_distance_left<min_distance or sonar_distance_right < min_distance:
-        velocity = 0.0
-    elif sonar_distance_left<sonar_distance_right:
-        velocity = max_velocity*sonar_distance_left/max_distance
     else:
-        velocity = max_velocity*sonar_distance_right/max_distance
+        velocity = pow(max_distance-target_distance,2)/(max_distance-min_distance)
 
     
     return velocity
