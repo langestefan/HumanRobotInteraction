@@ -1,5 +1,7 @@
+import imp
 import math
 import random
+import numpy as np
 
 degree = math.pi/180.0 # radians per degree
 
@@ -72,6 +74,11 @@ def compute_turnrate(target_dist, target_angle, sonar_distance_left, sonar_dista
         turnrate=1.0
     else:
         turnrate=turnrate/max_turnrate
+
+    max_distance = 20.0 #m
+
+    if target_dist<max_distance:
+        turnrate = turnrate - np.sign(target_angle)*(math.pi*0.2)
 
     return turnrate
 
