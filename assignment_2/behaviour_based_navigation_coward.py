@@ -49,7 +49,7 @@ def compute_velocity(target_distance, target_angle_robot):
 def compute_turnrate(target_dist, target_angle, sonar_distance_left, sonar_distance_right):
     max_turnrate = 0.349 #rad/s # may need adjustment!
 
-    delta_t = 1 # may need adjustment!
+    delta_t = 0.2 # may need adjustment!
     sonar_angle_left = 30 * degree
     sonar_angle_right = -30 * degree
     

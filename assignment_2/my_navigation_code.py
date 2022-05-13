@@ -1,9 +1,9 @@
 import math
 import numpy as np
-import behaviour_based_navigation_aggressive as bn_aggressive
-import behaviour_based_navigation_coward as bn_coward
-import behaviour_based_navigation_explore as bn_explore
-import behaviour_based_navigation_love as bn_love
+# import behaviour_based_navigation_aggressive as bn_robot
+import behaviour_based_navigation_coward as bn_robot
+# import behaviour_based_navigation_explore as bn_robot
+# import behaviour_based_navigation_love as bn_robot
 from definitions import *
 
 
@@ -27,7 +27,7 @@ def scan_world(robot, allobstacles, alltargets):
     # print sonar_left, sonar_right, target_distance, target_angle
     target_angle_robot = target_angle - robot.phi  # This is the angle relative to the heading direction of the robot.
 
-    turn_rate = bn_aggressive.compute_turnrate(target_distance, target_angle_robot, sonar_left, sonar_right)
-    velocity = bn_aggressive.compute_velocity(target_distance, target_angle_robot)
+    turn_rate = bn_robot.compute_turnrate(target_distance, target_angle_robot, sonar_left, sonar_right)
+    velocity = bn_robot.compute_velocity(target_distance, target_angle_robot)
     robot.set_vel(velocity, turn_rate) # the simulated robot does not sidestep
 
