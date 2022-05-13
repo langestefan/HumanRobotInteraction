@@ -6,7 +6,8 @@ degree = math.pi/180.0 # radians per degree
 def FTarget(target_distance, target_angle):
 
     #do something useful here
-    Ftar=0
+    Ftar = math.sin(-target_angle)
+    # Ftar = 0
     return Ftar
 
 def FObstacle(obs_distance, obs_angle):
@@ -31,19 +32,16 @@ def FOrienting():
     Forient=0
     return Forient
 
-def compute_velocity(sonar_distance_left, sonar_distance_right):
+def compute_velocity(target_dist):
     max_velocity = 1.0
-    max_distance = 0.5 #m
-    min_distance = 0.2 #m
+    max_distance = 20 #m
+    # min_distance = 1 #m
 
-    if sonar_distance_left>max_distance and sonar_distance_right > max_distance:
+
+    if target_dist > max_distance:
         velocity = max_velocity
-    elif sonar_distance_left<min_distance or sonar_distance_right < min_distance:
-        velocity = 0.0
-    elif sonar_distance_left<sonar_distance_right:
-        velocity = max_velocity*sonar_distance_left/max_distance
     else:
-        velocity = max_velocity*sonar_distance_right/max_distance
+        velocity = target_dist * max_velocity / max_distance
 
     
     return velocity
@@ -54,6 +52,7 @@ def compute_turnrate(target_dist, target_angle, sonar_distance_left, sonar_dista
     delta_t = 1 # may need adjustment!
     sonar_angle_left = 30 * degree
     sonar_angle_right = -30 * degree
+    max_distance = 20 #m
     
     Fobs_left = FObstacle(sonar_distance_left, sonar_angle_left)
     Fobs_right = FObstacle(sonar_distance_right, sonar_angle_right)
@@ -65,13 +64,18 @@ def compute_turnrate(target_dist, target_angle, sonar_distance_left, sonar_dista
              FStochastic()
              
     # turnrate: d phi(t) / dt = sum( forces ) 
-    turnrate =  FTotal*delta_t
+    turnrate =  FTotal*delta_t * target_dist / max_distance
+    # turnrate =  FTotal*delta_t
+    if target_dist > max_distance:
+        turnrate = 0
     
     #normalise turnrate value
     if turnrate>max_turnrate:
         turnrate=1.0
     else:
         turnrate=turnrate/max_turnrate
+
+
 
     return turnrate
 
