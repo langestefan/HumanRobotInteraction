@@ -21,4 +21,4 @@ WHITE = (255, 255, 255)
 screen_width = 1920
 screen_height = 1080
 
-braitenberg = True
+braitenberg = False
