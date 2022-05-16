@@ -2,6 +2,7 @@ import math
 import random
 
 degree = math.pi/180.0 # radians per degree
+rad = 180/math.pi # degrees per radian
 
 # Ftar = -sin(head-target)
 def FTarget(target_distance, target_angle):
@@ -13,12 +14,15 @@ def FTarget(target_distance, target_angle):
 
 def FObstacle(obs_distance, obs_angle):
     too_far=10 #cm
-    sigma = 0.01
-    beta = 1
+    sigma = 3 # 0.01
+    beta = 5
+
+    print("obs_distance: ", obs_distance)
+    print("obs_angle: ", obs_angle)
 
     if obs_distance < too_far:
         #do something useful here
-        Fobs=math.exp(-(obs_angle)**2/(2*sigma**2))*(obs_angle)*math.exp(-obs_distance/beta) # needs replacing !
+        Fobs = math.exp(-(obs_angle)**2/(2*sigma**2))*(obs_angle)*math.exp(-obs_distance/beta) # needs replacing !
         #Fobs=0
     else:
         Fobs=0
@@ -58,17 +62,30 @@ def compute_turnrate(robot, target_dist, target_angle, sonar_distance_left, sona
     max_turnrate = 0.349 #rad/s # may need adjustment!
 
     delta_t = 1 # may need adjustment!
-    sonar_angle_left = (robot.phi - 30) * degree 
-    sonar_angle_right = (robot.phi + 30) * degree
+    sonar_angle_left = (robot.phi * rad - 30) * degree 
+    sonar_angle_right = (robot.phi * rad + 30) * degree
     
     Fobs_left = FObstacle(sonar_distance_left, sonar_angle_left)
     Fobs_right = FObstacle(sonar_distance_right, sonar_angle_right)
+    Ftarget = FTarget(target_dist, target_angle)
+    Forient = FOrienting(target_dist, robot)
+    Fstoch = FStochastic()
 
-    FTotal = FTarget(target_dist, target_angle) + \
-             Fobs_left + \
-             Fobs_right + \
-             FOrienting(target_dist,robot) + \
-             FStochastic()
+    # print all the forces
+    print("Fobs_left: ", Fobs_left)
+    print("Fobs_right: ", Fobs_right)
+
+    # force weights
+    w_obs = 1.2
+    w_target = 0.3
+    w_orient = 0.5
+    w_stoch = 0.5
+    
+    FTotal = w_target * Ftarget + \
+             w_obs * Fobs_left + \
+             w_obs * Fobs_right + \
+             w_orient * Forient + \
+             w_stoch * Fstoch 
              
     # turnrate: d phi(t) / dt = sum( forces ) 
     turnrate =  FTotal*delta_t
