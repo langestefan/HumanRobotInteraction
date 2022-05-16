@@ -13,9 +13,9 @@ def FTarget(target_distance, target_angle):
     return Ftar
 
 def FObstacle(obs_distance, obs_angle):
-    too_far=10 #cm
-    sigma = 3 # 0.01
-    beta = 5
+    too_far = 7.5 #cm
+    sigma = 5 # 0.01
+    beta = 8
 
     print("obs_distance: ", obs_distance)
     print("obs_angle: ", obs_angle)
@@ -30,20 +30,20 @@ def FObstacle(obs_distance, obs_angle):
 
 def FStochastic():
     """FStochastic adds noise to the turnrate force. This is just to make the simulation more realistic by adding some noie something useful here"""
-    Kstoch=0.03
+    Kstoch = 0.03
     
-    Fstoch =Kstoch*random.randint(1,100)/100.0
+    Fstoch = Kstoch*random.randint(1,100)/100.0
     return Fstoch
 
 def FOrienting(target_distance,robot):
     #do something useful here
-    Forient=-math.exp(-target_distance)*math.sin(robot.phi)
+    Forient= - math.exp(-target_distance)*math.sin(robot.phi)
     return Forient
 
 def compute_velocity(sonar_distance_left, sonar_distance_right):
-    max_velocity = 1.0
+    max_velocity = 2.0
     max_distance = 10.0 #m
-    min_distance = 1.0 #m
+    min_distance = 3.0 #m
 
     if sonar_distance_left>max_distance and sonar_distance_right > max_distance:
         velocity = max_velocity
@@ -59,9 +59,9 @@ def compute_velocity(sonar_distance_left, sonar_distance_right):
 
 # target_angle = target - robot_head
 def compute_turnrate(robot, target_dist, target_angle, sonar_distance_left, sonar_distance_right):
-    max_turnrate = 0.349 #rad/s # may need adjustment!
+    max_turnrate = 0.5 #rad/s # may need adjustment!
 
-    delta_t = 1 # may need adjustment!
+    delta_t = 0.5 # may need adjustment!
     sonar_angle_left = (robot.phi * rad - 30) * degree 
     sonar_angle_right = (robot.phi * rad + 30) * degree
     
@@ -76,25 +76,30 @@ def compute_turnrate(robot, target_dist, target_angle, sonar_distance_left, sona
     print("Fobs_right: ", Fobs_right)
 
     # force weights
-    w_obs = 1.2
+    w_obs = 1
     w_target = 0.3
-    w_orient = 0.5
+    w_orient = 1.5
     w_stoch = 0.5
     
-    FTotal = w_target * Ftarget + \
-             w_obs * Fobs_left + \
-             w_obs * Fobs_right + \
-             w_orient * Forient + \
-             w_stoch * Fstoch 
+    if Fobs_left > Fobs_right:
+        FTotal = w_target * Ftarget - \
+                 w_obs * Fobs_left + \
+                 w_orient * Forient + \
+                 w_stoch * Fstoch 
+    else:
+        FTotal = w_target * Ftarget + \
+                 w_obs * Fobs_right + \
+                 w_orient * Forient + \
+                 w_stoch * Fstoch         
              
     # turnrate: d phi(t) / dt = sum( forces ) 
     turnrate =  FTotal*delta_t
     
     #normalise turnrate value
     if turnrate>max_turnrate:
-        turnrate=1.0
+        turnrate = 1.0
     else:
-        turnrate=turnrate/max_turnrate
+        turnrate = turnrate/max_turnrate
 
     return turnrate
 
