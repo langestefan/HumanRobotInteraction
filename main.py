@@ -1,6 +1,6 @@
 import assignment_2.braitenberg_vehicles as brait_vehicle
 import assignment_2.pygame_helpers as pygame_helpers
-import assignment_2.NavigationSimulation as NavigationSimulation
+import assignment_2.navigation_simulation as navigation_simulation
 
 def main():
     # select a Braitenberg robot
@@ -22,7 +22,7 @@ def main():
     elif robot_select == "BraitenbergAggressive":
         robot = brait_vehicle.BraitenbergAggressive()
     elif robot_select == "NavigationSimulation":
-        robot = NavigationSimulation.AutonomousRobot()
+        robot = navigation_simulation.AutonomousRobot()
     else:
         print("Unknown robot! Check settings!")
         return
