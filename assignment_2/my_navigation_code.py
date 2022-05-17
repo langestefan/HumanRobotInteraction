@@ -6,7 +6,7 @@ import numpy as np
 # import behaviour_based_navigation_love as bn_robot
 import behaviour_based_navigation_challenge3 as bn_robot
 from definitions import *
-from kalman import *
+from kalman import Kalman
 
 
 def compute_target_location(robot, alltargets):
@@ -33,9 +33,10 @@ def scan_world(robot, allobstacles, alltargets,sonar_right_modify,sonar_left_mod
     if Kalman_config is True:
         sonar_left = sonar_left_update
         sonar_right = sonar_right_update
-        
+
     turn_rate = bn_robot.compute_turnrate(robot, target_distance, target_angle_robot, sonar_left, sonar_right)
     velocity = bn_robot.compute_velocity(target_distance, target_angle_robot)
     robot.set_vel(velocity, turn_rate) # the simulated robot does not sidestep
     # print velocity, turn_rate
 
+    return sonar_left_update, sonar_right_update

@@ -102,8 +102,7 @@ def mainloop():
     target_reached = False
     autonomous = False
     collision_detection = True
-    sonar_l = [5]
-    sonar_r = [5]
+    sonar_l, sonar_r = [1], [1]
 
     nao1 = allrobots.sprites()[0]  # there is only one robot currently
     target = alltargets.sprites()[0] # and one target
