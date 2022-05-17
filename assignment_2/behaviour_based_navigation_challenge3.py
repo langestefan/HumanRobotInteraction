@@ -82,13 +82,13 @@ def compute_turnrate(robot, target_dist, target_angle, sonar_distance_left, sona
     w_orient = 1.5
     w_stoch = 0.5
     
-    Fobs = Fobs_right if Fobs_right > Fobs_left else Fobs_left
+    Fobs = -1*Fobs_left if Fobs_left > Fobs_right else Fobs_right
 
     FTotal = w_target * Ftarget + \
                 w_obs * Fobs + \
                 w_orient * Forient + \
-                w_stoch * Fstoch      
-
+                w_stoch * Fstoch     
+             
     # turnrate: d phi(t) / dt = sum( forces ) 
     turnrate =  FTotal*delta_t
     
