@@ -102,6 +102,8 @@ def mainloop():
     target_reached = False
     autonomous = False
     collision_detection = True
+    sonar_l = [5]
+    sonar_r = [5]
 
     nao1 = allrobots.sprites()[0]  # there is only one robot currently
     target = alltargets.sprites()[0] # and one target
@@ -157,7 +159,9 @@ def mainloop():
 
         # this updates the parameters and the state of the robot (collided or not, going or not
         if autonomous:
-            nav.scan_world(nao1, allobstacles, alltargets)
+            sonar_l_, sonar_r_ = nav.scan_world(nao1, allobstacles, alltargets, sonar_l, sonar_r)
+            sonar_l.append(sonar_l_)
+            sonar_r.append(sonar_r_)
         if collision_detection:
             collided = detect_collisions(nao1, allobstacles, allsounds, collided)
         if not target_reached:
