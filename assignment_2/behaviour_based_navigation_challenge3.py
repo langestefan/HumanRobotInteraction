@@ -48,13 +48,14 @@ def compute_velocity(sonar_distance_left, sonar_distance_right):
     if sonar_distance_left>max_distance and sonar_distance_right > max_distance:
         velocity = max_velocity
     elif sonar_distance_left<min_distance or sonar_distance_right < min_distance:
-        velocity = max_velocity/max(sonar_distance_left,sonar_distance_right) + 0.5
+        velocity = max_velocity/max(sonar_distance_left,sonar_distance_right) + 1
     elif sonar_distance_left<sonar_distance_right:
         velocity = max_velocity*sonar_distance_left/max_distance
     else:
         velocity = max_velocity*sonar_distance_right/max_distance
 
-    
+    print sonar_distance_left, sonar_distance_right
+
     return velocity
 
 # target_angle = target - robot_head
@@ -77,7 +78,7 @@ def compute_turnrate(robot, target_dist, target_angle, sonar_distance_left, sona
 
     # force weights
     w_obs = 1
-    w_target = 0.3
+    w_target = 0.15
     w_orient = 1.5
     w_stoch = 0.5
     
