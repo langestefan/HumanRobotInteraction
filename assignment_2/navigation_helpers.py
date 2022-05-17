@@ -1,10 +1,5 @@
 import math
 import numpy as np
-# import behaviour_based_navigation_aggressive as bn_robot
-# import behaviour_based_navigation_coward as bn_robot
-# import behaviour_based_navigation_explore as bn_robot
-# import behaviour_based_navigation_love as bn_robot
-import behaviour_based_navigation_challenge3 as bn_robot
 from definitions import *
 from kalman import Kalman
 
@@ -22,7 +17,21 @@ def compute_target_location(robot, alltargets):
     return dist[i], angle[i]
 
 
-def scan_world(robot, allobstacles, alltargets,sonar_right_modify,sonar_left_modify):
+def scan_world(bn_robot, robot, allobstacles, alltargets,sonar_right_modify, sonar_left_modify):
+    """ This function scans the world with sonar sensors and returns the distance to the closest obstacle.
+
+        parameters:
+            bn_robot: the behaviour_based_navigation robot
+            robot: the robot object
+            allobstacles: a list of all obstacles
+            alltargets: a list of all targets
+            sonar_right_modify: the modified sonar right
+            sonar_left_modify: the modified sonar left
+        returns:
+            sonar_right_update: the updated sonar right
+            sonar_left_update: the updated sonar left
+    """
+
     # let sonars scan the target instead of the obstacles
     [sonar_left, sonar_right] = robot.sonar(allobstacles)
     target_distance, target_angle = compute_target_location(robot, alltargets)  # The angle is with respect to the world frame
@@ -34,7 +43,7 @@ def scan_world(robot, allobstacles, alltargets,sonar_right_modify,sonar_left_mod
         sonar_left = sonar_left_update
         sonar_right = sonar_right_update
 
-    turn_rate = bn_robot.compute_turnrate(robot, target_distance, target_angle_robot, sonar_left, sonar_right)
+    turn_rate = bn_robot.compute_turnrate(target_distance, target_angle_robot, sonar_left, sonar_right, robot=robot)
     velocity = bn_robot.compute_velocity(target_distance, target_angle_robot)
     robot.set_vel(velocity, turn_rate) # the simulated robot does not sidestep
     # print velocity, turn_rate

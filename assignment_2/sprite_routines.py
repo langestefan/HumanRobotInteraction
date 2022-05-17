@@ -50,6 +50,7 @@ def init():
 # functions to create our resources
 def load_image(name, colorkey=None):
     fullname = os.path.join(data_dir, name)
+
     try:
         image = pygame.image.load(fullname)
     except pygame.error:

@@ -6,7 +6,6 @@ Created on Mon Apr 20 13:52:07 2020
 """
 
 import numpy as np
-import math
 
 def footpoint(p, line_segment):
     # a line segment is a list of two points
