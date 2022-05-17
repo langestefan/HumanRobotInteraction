@@ -135,7 +135,7 @@ class BraitenbergExplore(BehaviourRobot):
         BehaviourRobot.__init__(self, "BraitenbergExplore")
 
     def FTarget(self, target_distance, target_angle):
-        Ftar =- np.sin(-target_angle)
+        Ftar = 0.1 * np.sin(-target_angle)
         return Ftar
 
     def FObstacle(self, obs_distance, obs_angle):
@@ -181,7 +181,7 @@ class BraitenbergExplore(BehaviourRobot):
                 self.FStochastic()
                 
         # turnrate: d phi(t) / dt = sum( forces ) 
-        turnrate =  FTotal*delta_t * target_dist / max_distance
+        turnrate =  FTotal*delta_t * (1 - target_dist / max_distance)
         # turnrate =  FTotal*delta_t
         if target_dist > max_distance:
             turnrate = 0
