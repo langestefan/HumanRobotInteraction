@@ -15,12 +15,12 @@ def compute_landmark_location(detected, timestamp, markerInfo):
     parameters:
             detected: target detected or not, Ture or False
             timestamp: timestamp in epoch time
-            markerInfo: markerInfo[1][0]  #markerID
-                        markerInfo[0][1], #alpha - x location in camera angle
-                        markerInfo[0][2], #beta  - y location
-                        markerInfo[0][3], #sizeX
-                        markerInfo[0][4], #sizeY
-                        markerInfo[0][5]  #orientation about vertical w.r. Nao's head
+            markerInfo: markerInfo[1][0]  # markerID
+                        markerInfo[0][1], # alpha - x location in camera angle
+                        markerInfo[0][2], # beta  - y location
+                        markerInfo[0][3], # sizeX
+                        markerInfo[0][4], # sizeY
+                        markerInfo[0][5]  # orientation about vertical w.r. Nao's head
     
     """
     landmarkTheoreticalSize = 0.092 #in meters
@@ -38,7 +38,7 @@ def compute_landmark_location(detected, timestamp, markerInfo):
 
     return distance, alpha
 
-# test compute_landmark_location funetion
+# test compute_landmark_location function
 def test():
     ip = "192.168.0.115"
     
