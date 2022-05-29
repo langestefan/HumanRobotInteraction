@@ -16,8 +16,8 @@ class AutonomousRobot(BehaviourRobot):
         sigma = 5 # 0.01
         beta = 8
 
-        print("obs_distance: ", obs_distance)
-        print("obs_angle: ", obs_angle)
+        #print("obs_distance: ", obs_distance)
+        #print("obs_angle: ", obs_angle)
 
         if obs_distance < too_far:
             Fobs = np.exp(-(obs_angle)**2/(2*sigma**2))*(obs_angle) * np.exp(-obs_distance/beta)
@@ -44,7 +44,7 @@ class AutonomousRobot(BehaviourRobot):
         else:
             velocity = max_velocity*sonar_distance_right/max_distance
 
-        print sonar_distance_left, sonar_distance_right
+        #print sonar_distance_left, sonar_distance_right
 
         return velocity
 
@@ -63,8 +63,8 @@ class AutonomousRobot(BehaviourRobot):
         Fstoch = self.FStochastic()
 
         # print all the forces
-        print("Fobs_left: ", Fobs_left)
-        print("Fobs_right: ", Fobs_right)
+        # print("Fobs_left: ", Fobs_left)
+        # print("Fobs_right: ", Fobs_right)
 
         # force weights
         w_obs = 1

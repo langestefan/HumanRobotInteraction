@@ -10,6 +10,7 @@ follow along in the tutorial.
 from definitions import *
 import sprite_routines as sp
 import navigation_helpers as nav
+from kalman import trajectory
 
 def create_world(background, draw_obstacles=False):
     """
@@ -110,7 +111,6 @@ def mainloop(bn_robot, draw_obstacles):
     target_reached = False
     autonomous = False
     collision_detection = True
-    sonar_l, sonar_r = [1], [1]
 
     nao1 = allrobots.sprites()[0]  # there is only one robot currently
     target = alltargets.sprites()[0] # and one target
@@ -166,9 +166,7 @@ def mainloop(bn_robot, draw_obstacles):
 
         # this updates the parameters and the state of the robot (collided or not, going or not
         if autonomous:
-            sonar_l_, sonar_r_ = nav.scan_world(bn_robot, nao1, allobstacles, alltargets, sonar_l, sonar_r)
-            sonar_l.append(sonar_l_)
-            sonar_r.append(sonar_r_)
+            nav.scan_world(bn_robot, nao1, allobstacles, alltargets)
         if collision_detection:
             collided = detect_collisions(nao1, allobstacles, allsounds, collided)
         if not target_reached:
@@ -189,7 +187,7 @@ def mainloop(bn_robot, draw_obstacles):
         allrobots.draw(screen)
         sp.pygame.display.flip()
 
-
+    trajectory()
     sp.pygame.quit()
 
 
@@ -200,3 +198,4 @@ def mainloop(bn_robot, draw_obstacles):
 if __name__ == '__main__':
     show_menu()
     mainloop()
+
