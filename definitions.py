@@ -22,3 +22,7 @@ screen_width = 1920
 screen_height = 1080
 
 Kalman_config = False
+
+marvin = {'ip_address' : '192.168.0.115', 'colour' :'orange'}
+bender = {'ip_address' : '192.168.0.112', 'colour' :'red'}
+# eve = {'ip_address' : '192.168.0.119', 'colour' :'white'}
