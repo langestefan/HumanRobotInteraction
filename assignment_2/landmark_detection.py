@@ -7,36 +7,30 @@ import almath
 import naoqi
 
 
-def compute_landmark_location(detected, timestamp, markerInfo):
+def compute_landmark_location(markerInfo):
     """
     In order to use this 'compute the landmark location' function, 
     please call nao.DetectLandMark(), to get detected, timestamp, markerInfo 
 
     parameters:
-            detected: target detected or not, Ture or False
-            timestamp: timestamp in epoch time
             markerInfo: markerInfo[1][0]  # markerID
                         markerInfo[0][1], # alpha - x location in camera angle
                         markerInfo[0][2], # beta  - y location
                         markerInfo[0][3], # sizeX
                         markerInfo[0][4], # sizeY
-                        markerInfo[0][5]  # orientation about vertical w.r. Nao's head
-    
+                        markerInfo[0][5]  # orientation about vertical w.r. Nao's head    
     """
-    landmarkTheoreticalSize = 0.092 #in meters
+    landmarkTheoreticalSize = 0.092 # in meters
    
     # Compute distance to landmark.
-    if detected == True:
-        alpha = markerInfo[0][1]
-        x_size = markerInfo[0][3]
-        distance = landmarkTheoreticalSize / ( 2 * math.tan( x_size / 2))
-        print "Distance:", (distance)
-        print "Angle:", (alpha)
-    else :
-        print "No landmark detected"
+    angle_rad = markerInfo[0][1]
+    x_size = markerInfo[0][3]
+    distance = landmarkTheoreticalSize / (2*math.tan(x_size / 2))
 
+    # convert angle to degrees
+    angle_deg = np.degrees(angle_rad)
 
-    return distance, alpha
+    return distance, angle_rad, angle_deg
 
 # test compute_landmark_location function
 def test():
