@@ -31,8 +31,8 @@ def main(robot_ip, robot_port, topf_path):
 
 if __name__ == '__main__':
 
-    dialog_topic = "/usr/nao/groupxx/mydialog_enu.top"  # Absolute path of the dialog topic file (on the robot).
-    robot_ip="127.0.0.1" # replace this with the actual ip address of the robot
+    dialog_topic = "/home/nao/group_05/Brain_exercise_enu.top"  # Absolute path of the dialog topic file (on the robot).
+    robot_ip="192.168.0.115" # replace this with the actual ip address of the robot
     port=9559 # Robot port number
 
     main(robot_ip, port, dialog_topic)
