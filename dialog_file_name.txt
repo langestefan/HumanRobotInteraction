@@ -1,10 +1,10 @@
 BiddingFarewell_enu.top
-BiddingFarewell_enu.dlg
+BiddingFarewell.dlg
 GetAttention_enu.top
-GetAttention_enu.dlg
+GetAttention.dlg
 Brain_exercise_enu.top
-Brain_exercise_enu.dlg
+Brain_exercise.dlg
 InquiryReminder_enu.top
-InquiryReminder_enu.dlg
+InquiryReminder.dlg
 Small_talk_1_enu.top
-Small_talk_1_enu.dlg
+Small_talk_1.dlg
