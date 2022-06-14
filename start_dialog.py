@@ -13,11 +13,11 @@ module_path = os.path.abspath(os.path.join('..'))
 if module_path not in sys.path:
     sys.path.append(module_path)
 
-from definitions import marvin
+from definitions import marvin, bender
 
 def main(robot_ip, robot_port, topf_path):
-    # nao.InitProxy(robot_ip)
-    # nao.Say("Hey user, what is your name?")
+    nao.InitProxy(robot_ip)
+    nao.Say("Hey user, what is your name?")
 
     dialog_p = ALProxy('ALDialog', robot_ip, robot_port)
     dialog_p.setLanguage("English")
@@ -61,11 +61,11 @@ if __name__ == '__main__':
         'GetAttention': 'GetAttention_enu.top',
         'Brain_exercise:': 'Brain_exercise_enu.top',
         'InquiryReminder': 'InquiryReminder_enu.top',
-        'Small_talk_1_enu': 'Small_talk_1_enu.top'
+        'Small_talk_1': 'Small_talk_1_enu.top'
     }
 
     # select topic here
-    topic = topics['BiddingFarewell']
+    topic = topics['InquiryReminder']
     print("Using topic: ", topic)
 
     # get dialog file path on Nao robot
@@ -77,6 +77,7 @@ if __name__ == '__main__':
 
     # robot ip/port
     robot_ip = marvin['ip_address'] 
+    # robot_ip = bender['ip_address'] 
     port = 9559 # Robot port number
 
     main(robot_ip, port, dialog_topic)

@@ -323,6 +323,17 @@ def EyeLED(color=[0,0,0],interpol_time = 0, POST=True):
     except NameError:
         print 'ALLeds proxy undefined.'
 
+def EarLED(intensity, interpol_time = 0, POST=True):
+    sGroup = "EarLeds"
+    try:
+        if POST:
+            ledProxy.post.fade(sGroup, intensity, interpol_time)
+        else:
+            ledProxy.fade(sGroup, intensity, interpol_time)            
+                
+    except NameError:
+        print 'ALLeds proxy undefined.'
+
 ###############################################################################
 ## This function returns the available gestures located in the gesture dir.
 ###############################################################################
