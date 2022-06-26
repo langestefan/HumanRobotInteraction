@@ -7,6 +7,28 @@ from landmark_detection import compute_landmark_location
 
 from definitions import marvin
 
+import time
+
+def flashing_leds(duration_sec=5):
+    max_intensity = 250
+    timestep = 0.5
+    post = True
+
+    while True:
+        # for timing
+        time_start = time.time()
+
+        nao.EarLED(max_intensity/255, interpol_time=timestep, POST = post)
+        sleep(timestep)
+        nao.EarLED(0, interpol_time=timestep, POST = post)
+            
+
+        # for timing
+        time_end = time.time()
+
+        if time_end - time_start > duration_sec:
+            break
+
 
 def detectLandmarkLoop(interval=0.1, max_duration=5):
     while(cur_duration < max_duration):
